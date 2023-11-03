@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TaskController;
@@ -19,9 +20,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
     return $request->user();
 });
+Route::post('/login',[AuthController::class,'login']);
 
 Route::apiResource('projects',ProjectController::class);
 
@@ -33,3 +35,8 @@ Route::apiResource('tags',TagController::class);
 
  Route::post('/tasks/{task}/tags',[TaskController::class,'insert']);
 
+ Route::post('/register',[AuthController::class,'register']);
+
+Route::middleware('auth:sanctum')->post('/logout',[AuthController::class,'logout']);
+Route::middleware('auth:sanctum')->get('/myprojects',[ProjectController::class,'index']);
+Route::middleware(['auth:sanctum','ckeck_project'])->get('/myprojects/{project}',[ProjectController::class,'show']);

@@ -10,15 +10,13 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+   public function index()
     {
-    $projects=Project::all();
+    $projects=auth()->user()->projects()->get();
     return response()->json($projects);
 
     }
-    /**
-     * Store a newly created resource in storage.
-     */
+ 
     public function store(Request $request)
     {
       $validateData=$request->validate([
@@ -35,8 +33,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-     $project->find($project);
-     return response()->json($project);
+   
+     return $project;
     }
 
     /**
@@ -61,4 +59,5 @@ class ProjectController extends Controller
     $project->delete();
     return response()->json($project);
     }
+
 }
