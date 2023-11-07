@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ProjectResource;
 use Illuminate\Http\Request;
 use App\Models\Project;
 
@@ -12,7 +13,7 @@ class ProjectController extends Controller
      */
    public function index()
     {
-    $projects=auth()->user()->projects()->get();
+    $projects=ProjectResource::collection(auth()->user()->projects()->get());
     return response()->json($projects);
 
     }
@@ -33,8 +34,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-   
-     return $project;
+     return new ProjectResource($project);
     }
 
     /**

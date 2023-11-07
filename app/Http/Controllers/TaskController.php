@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TaskResource;
 use App\Models\Tag;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -35,7 +36,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-    return response()->json($task);
+    return new TaskResource($task);
     }
     /**
      * Update the specified resource in storage.

@@ -21,5 +21,6 @@ class CheckUser
             return $next($request);
         }
         return response('Unauthorized',403);
+
     }
 }

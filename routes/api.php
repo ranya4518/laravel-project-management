@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TagController;
@@ -40,3 +41,6 @@ Route::apiResource('tags',TagController::class);
 Route::middleware('auth:sanctum')->post('/logout',[AuthController::class,'logout']);
 Route::middleware('auth:sanctum')->get('/myprojects',[ProjectController::class,'index']);
 Route::middleware(['auth:sanctum','ckeck_project'])->get('/myprojects/{project}',[ProjectController::class,'show']);
+
+Route::post('/transcribe',[AiController::class,'transcribe']);
+Route::post('/arabic',[AiController::class,'arabictransform']);
